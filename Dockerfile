@@ -3,6 +3,7 @@ WORKDIR /src
 COPY go.mod ./
 RUN go mod download
 COPY . .
+RUN go mod tidy
 RUN CGO_ENABLED=0 go build -o /series .
 FROM gcr.io/distroless/static-debian12
 COPY --from=build /series /series
